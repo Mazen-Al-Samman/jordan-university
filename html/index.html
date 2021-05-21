@@ -64,19 +64,12 @@
 </div>
 <!--End Main content-->
 
-<div class="container-fluid text-center mt-5">
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
-            <div class="shadow-lg p-3 mb-5 bg-white rounded font-cairo">
-                <h2>الجامعات الأردنية</h2>
-                <hr>
-                <div class="row d-flex justify-content-center p-5" id="universities">
-                    <!-- Universities -->
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="container-fluid text-center mt-5" id="main-content">
+<!--Universities contents.-->
+</div>
+
+<div class="container-fluid text-center mt-5" id="college-section">
+    <!-- Colleges content -->
 </div>
 </body>
 </html>
@@ -86,6 +79,7 @@
             'name': 'الجامعة الأردنية',
             'img': 'ju.png',
             'clicked': 'ju',
+            'collage': 'ahmad',
         },
         {
             'name': 'الجامعة الهاشمية',
@@ -121,22 +115,257 @@
             'clicked': 'tt',
         },
     ];
+    let collages = new Map();
+    collages.set('ju',
+        [
+            {
+                'name': 'علوم',
+                'clicked': 'science'
+            },
+            {
+                'name': 'تكنولوجيا المعلومات',
+                'click': 'it'
+            },
+            {
+                'name': 'الصيدلة',
+                'click': 'it'
+            },
+            {
+                'name': 'الإقتصاد',
+                'click': 'financial'
+            },
+            {
+                'name': 'الصحافة والإعلام',
+                'click': 'tv'
+            }
+        ]);
+    collages.set('hu',
+        [
+            {
+                'name': 'علوم',
+                'clicked': 'science'
+            },
+            {
+                'name': 'تكنولوجيا المعلومات',
+                'click': 'it'
+            },
+            {
+                'name': 'الصيدلة',
+                'click': 'it'
+            },
+            {
+                'name': 'الإقتصاد',
+                'click': 'financial'
+            },
+            {
+                'name': 'الصحافة والإعلام',
+                'click': 'tv'
+            }
+        ]);
+    collages.set('ab',
+    [
+        {
+            'name': 'علوم',
+            'clicked': 'science'
+        },
+        {
+            'name': 'تكنولوجيا المعلومات',
+            'click': 'it'
+        },
+        {
+            'name': 'الصيدلة',
+            'click': 'it'
+        },
+        {
+            'name': 'الإقتصاد',
+            'click': 'financial'
+        },
+        {
+            'name': 'الصحافة والإعلام',
+            'click': 'tv'
+        }
+    ]
+    );
+    collages.set('gju',
+    [
+        {
+            'name': 'علوم',
+            'clicked': 'science'
+        },
+        {
+            'name': 'تكنولوجيا المعلومات',
+            'click': 'it'
+        },
+        {
+            'name': 'الصيدلة',
+            'click': 'it'
+        },
+        {
+            'name': 'الإقتصاد',
+            'click': 'financial'
+        },
+        {
+            'name': 'الصحافة والإعلام',
+            'click': 'tv'
+        }
+    ]);
+    collages.set('just',
+    [
+        {
+            'name': 'علوم',
+            'clicked': 'science'
+        },
+        {
+            'name': 'تكنولوجيا المعلومات',
+            'click': 'it'
+        },
+        {
+            'name': 'الصيدلة',
+            'click': 'it'
+        },
+        {
+            'name': 'الإقتصاد',
+            'click': 'financial'
+        },
+        {
+            'name': 'الصحافة والإعلام',
+            'click': 'tv'
+        }
+    ]);
+    collages.set('mu',
+    [
+        {
+            'name': 'علوم',
+            'clicked': 'science'
+        },
+        {
+            'name': 'تكنولوجيا المعلومات',
+            'click': 'it'
+        },
+        {
+            'name': 'الصيدلة',
+            'click': 'it'
+        },
+        {
+            'name': 'الإقتصاد',
+            'click': 'financial'
+        },
+        {
+            'name': 'الصحافة والإعلام',
+            'click': 'tv'
+        }
+    ]);
+    collages.set('tt',
+    [
+        {
+            'name': 'علوم',
+            'clicked': 'science'
+        },
+        {
+            'name': 'تكنولوجيا المعلومات',
+            'click': 'it'
+        },
+        {
+            'name': 'الصيدلة',
+            'click': 'it'
+        },
+        {
+            'name': 'الإقتصاد',
+            'click': 'financial'
+        },
+        {
+            'name': 'الصحافة والإعلام',
+            'click': 'tv'
+        }
+    ]);
+    collages.set('yu',
+    [
+        {
+            'name': 'علوم',
+            'clicked': 'science'
+        },
+        {
+            'name': 'تكنولوجيا المعلومات',
+            'click': 'it'
+        },
+        {
+            'name': 'الصيدلة',
+            'click': 'it'
+        },
+        {
+            'name': 'الإقتصاد',
+            'click': 'financial'
+        },
+        {
+            'name': 'الصحافة والإعلام',
+            'click': 'tv'
+        }
+    ]);
+
+
     $('document').ready(function(){
+        $('#college-section').hide();
+        let html_code = `
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="shadow-lg p-3 mb-5 bg-white rounded font-cairo">
+                    <h2>الجامعات الأردنية</h2>
+                    <hr>
+                    <div class="row d-flex justify-content-center p-5" id="universities">
+            `;
         for (let i = 0; i < uni_data.length; i++) {
             let name = uni_data[i]['name'];
             let img = uni_data[i]['img'];
             let click = uni_data[i]['clicked'];
 
-            let html_code = `
-                <div data-click-uni="${click}" class="col-12 col-lg-3 col-sm-12 ml-4 shadow p-3 mb-5 bg-white rounded effect uni-box">
-                    <h2 data-click-uni="${click}" class="font-cairo">${name}</h2>
-                    <img data-click-uni="${click}" width="100" height="100" src="../img/${img}" class="img-fluid mt-3" alt="">
+            html_code += `
+                <div data-click-uni="${click}" data-click-name="${name}" class="col-12 col-lg-3 col-sm-12 ml-4 shadow p-3 mb-5 bg-white rounded effect uni-box">
+                    <h2 data-click-uni="${click}" data-click-name="${name}" class="font-cairo">${name}</h2>
+                    <img data-click-uni="${click}" data-click-name="${name}" width="100" height="100" src="../img/${img}" class="img-fluid mt-3" alt="">
                 </div>
             `;
-            $('#universities').append(html_code);
         }
+
+        html_code += `
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+        $('#main-content').append(html_code);
     });
     $('body').on('click', '.uni-box', function(e){
-       console.log(e.target.getAttribute("data-click-uni"));
+        let clicked_uni = e.target.getAttribute("data-click-uni");
+        let clicked_uni_name = e.target.getAttribute("data-click-name");
+        $('#main-content').fadeOut(250);
+        let col = collages.get(clicked_uni);
+        let html_code = `
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="shadow-lg p-3 mb-5 bg-white rounded font-cairo" id="uni-collages">
+                <h2>${clicked_uni_name}</h2>
+                <hr>
+                <div class="row d-flex justify-content-center p-5" id="collages">
+        `;
+        for (let i = 0; i < col.length; i++){
+            let name = col[i]['name'];
+            let click = col[i]['click'];
+            html_code += `
+                <div data-click-uni="${click}" class="col-12 col-lg-3 col-sm-12 ml-4 shadow p-3 mb-5 bg-white rounded effect uni-box">
+                    <h2 data-click-uni="${click}" class="font-cairo">${name}</h2>
+                </div>
+            `;
+            $('#collages').append(html_code);
+        }
+        html_code += `
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+        $('#college-section').html(html_code)
+        $('#college-section').fadeIn(250);
     });
 </script>

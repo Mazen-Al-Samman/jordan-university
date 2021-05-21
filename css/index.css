@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;0,800;1,100;1,200;1,300;1,500;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo&display=swap');
+.font-cairo {
+    font-family: 'Cairo';
+}
+.font-poppins-400 {
+    font-family: 'Poppins';
+    font-weight: 400;
+}
+.font-lobster {
+    font-family: 'Lobster';
+}
+.main-img {
+    position: absolute;
+    width: 100%;
+    height: 600px;
+    background-color: black;
+    z-index: 100;
+    opacity: 0.6;
+}
+.main-img-cont {
+    background-image: url("../img/main-img.jpg");
+    width: 100%;
+    height: 600px;
+    background-size: cover;
+    position: relative;
+    z-index: -1;
+}
+.study-text {
+    font-size: 60px;
+}
+.text {
+    margin-top: 200px;
+}
+.break-line {
+    margin-top: 20px;
+    border-top: 1px solid gray;
+    width: 80%;
+}
+.line {
+    line-height: 50px;
+    font-size: 16px;
+}
+.underline {
+    text-decoration: underline;
+}
+
+.effect:hover {
+    transform: scale(1.06);
+}

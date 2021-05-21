@@ -1,0 +1,142 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>University Guider</title>
+    <script src="../js/jquery.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<!--Start NAVBAR-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light font-poppins-400">
+    <a class="navbar-brand" href="#">University Guider</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Jordan universities</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">About us</a>
+            </li>
+        </ul>
+        <span class="navbar-text">
+      Follow us to get the latest news about jordanian universities.
+    </span>
+    </div>
+</nav>
+<div>
+    <div class="main-img-cont">
+        <div class="main-img">
+            <h1 class="position-absolute font-lobster text-right text p-3 text-light"><span class="text-warning study-text">Your study</span> is our most important <br><span class="text-warning study-text">Mission</span></h1>
+        </div>
+    </div>
+</div>
+<!--End NAVBAR-->
+
+<!--Main content-->
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-12 text-center">
+            <h1 class="font-cairo mt-4 text-dark">الرئيسية</h1>
+        </div>
+        <br>
+        <div class="break-line"></div>
+        <div class="col-md-8 text-center font-cairo mt-4" dir="rtl">
+            <p class="line">
+                المرحلة الأصعب في حياة كل طالب هي إختيار التخصص الذي يتناسب مع قدراته, معدله وسوق العمل الأردني
+                <br>
+                لذلك نقوم نحن كـ فريق
+                <span class="text-info underline">University Guider </span>
+                بمساعدتك لتختار التخصص المناسب لك وفي الجامعة التي ترغب بها.
+                <button class="btn btn-dark mt-3">سجل الان</button>
+            </p>
+        </div>
+    </div>
+</div>
+<!--End Main content-->
+
+<div class="container-fluid text-center mt-5">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="shadow-lg p-3 mb-5 bg-white rounded font-cairo">
+                <h2>الجامعات الأردنية</h2>
+                <hr>
+                <div class="row d-flex justify-content-center p-5" id="universities">
+                    <!-- Universities -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    let uni_data = [
+        {
+            'name': 'الجامعة الأردنية',
+            'img': 'ju.png',
+            'clicked': 'ju',
+        },
+        {
+            'name': 'الجامعة الهاشمية',
+            'img': 'hu.png',
+            'clicked': 'hu',
+        },
+        {
+            'name': 'جامعة مؤتة',
+            'img': 'mu.png',
+            'clicked': 'mu',
+        },
+        {
+            'name': 'جامعة العلوم والتكنولوجيا',
+            'img': 'just.png',
+            'clicked': 'just',
+        },
+        {
+            'name': 'الجامعة الألمانية الأردنية',
+            'img': 'gju.png',
+            'clicked': 'gju',
+        },{
+            'name': 'جامعة ال البيت',
+            'img': 'ab.png',
+            'clicked': 'ab',
+        },{
+            'name': 'جامعة اليرموك',
+            'img': 'yu.png',
+            'clicked': 'yu',
+        },
+        {
+            'name': 'الجامعة الطفيلة التقنية',
+            'img': 'tt.png',
+            'clicked': 'tt',
+        },
+    ];
+    $('document').ready(function(){
+        for (let i = 0; i < uni_data.length; i++) {
+            let name = uni_data[i]['name'];
+            let img = uni_data[i]['img'];
+            let click = uni_data[i]['clicked'];
+
+            let html_code = `
+                <div data-click-uni="${click}" class="col-12 col-lg-3 col-sm-12 ml-4 shadow p-3 mb-5 bg-white rounded effect uni-box">
+                    <h2 data-click-uni="${click}" class="font-cairo">${name}</h2>
+                    <img data-click-uni="${click}" width="100" height="100" src="../img/${img}" class="img-fluid mt-3" alt="">
+                </div>
+            `;
+            $('#universities').append(html_code);
+        }
+    });
+    $('body').on('click', '.uni-box', function(e){
+       console.log(e.target.getAttribute("data-click-uni"));
+    });
+</script>

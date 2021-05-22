@@ -57,12 +57,18 @@
                 لذلك نقوم نحن كـ فريق
                 <span class="text-info underline">University Guider </span>
                 بمساعدتك لتختار التخصص المناسب لك وفي الجامعة التي ترغب بها.
-                <button class="btn btn-dark mt-3">سجل الان</button>
             </p>
+            <button class="btn btn-dark mt-3">سجل الان</button>
         </div>
     </div>
 </div>
 <!--End Main content-->
+
+<!--Back button-->
+<div class="d-flex justify-content-center mt-5 mb-3">
+    <img class="effect" id="back" src="https://img.icons8.com/wired/64/000000/circled-left-2.png"/>
+</div>
+<!--End Back button-->
 
 <div class="container-fluid text-center mt-5" id="main-content">
 <!--Universities contents.-->
@@ -71,240 +77,18 @@
 <div class="container-fluid text-center mt-5" id="college-section">
     <!-- Colleges content -->
 </div>
+
+<div class="container-fluid text-center mt-5" id="major-section">
+    <!-- Colleges content -->
+</div>
+
 </body>
 </html>
+<script src="../js/data.js"></script>
 <script>
-    let uni_data = [
-        {
-            'name': 'الجامعة الأردنية',
-            'img': 'ju.png',
-            'clicked': 'ju',
-            'collage': 'ahmad',
-        },
-        {
-            'name': 'الجامعة الهاشمية',
-            'img': 'hu.png',
-            'clicked': 'hu',
-        },
-        {
-            'name': 'جامعة مؤتة',
-            'img': 'mu.png',
-            'clicked': 'mu',
-        },
-        {
-            'name': 'جامعة العلوم والتكنولوجيا',
-            'img': 'just.png',
-            'clicked': 'just',
-        },
-        {
-            'name': 'الجامعة الألمانية الأردنية',
-            'img': 'gju.png',
-            'clicked': 'gju',
-        },{
-            'name': 'جامعة ال البيت',
-            'img': 'ab.png',
-            'clicked': 'ab',
-        },{
-            'name': 'جامعة اليرموك',
-            'img': 'yu.png',
-            'clicked': 'yu',
-        },
-        {
-            'name': 'الجامعة الطفيلة التقنية',
-            'img': 'tt.png',
-            'clicked': 'tt',
-        },
-    ];
-    let collages = new Map();
-    collages.set('ju',
-        [
-            {
-                'name': 'علوم',
-                'clicked': 'science'
-            },
-            {
-                'name': 'تكنولوجيا المعلومات',
-                'click': 'it'
-            },
-            {
-                'name': 'الصيدلة',
-                'click': 'it'
-            },
-            {
-                'name': 'الإقتصاد',
-                'click': 'financial'
-            },
-            {
-                'name': 'الصحافة والإعلام',
-                'click': 'tv'
-            }
-        ]);
-    collages.set('hu',
-        [
-            {
-                'name': 'علوم',
-                'clicked': 'science'
-            },
-            {
-                'name': 'تكنولوجيا المعلومات',
-                'click': 'it'
-            },
-            {
-                'name': 'الصيدلة',
-                'click': 'it'
-            },
-            {
-                'name': 'الإقتصاد',
-                'click': 'financial'
-            },
-            {
-                'name': 'الصحافة والإعلام',
-                'click': 'tv'
-            }
-        ]);
-    collages.set('ab',
-    [
-        {
-            'name': 'علوم',
-            'clicked': 'science'
-        },
-        {
-            'name': 'تكنولوجيا المعلومات',
-            'click': 'it'
-        },
-        {
-            'name': 'الصيدلة',
-            'click': 'it'
-        },
-        {
-            'name': 'الإقتصاد',
-            'click': 'financial'
-        },
-        {
-            'name': 'الصحافة والإعلام',
-            'click': 'tv'
-        }
-    ]
-    );
-    collages.set('gju',
-    [
-        {
-            'name': 'علوم',
-            'clicked': 'science'
-        },
-        {
-            'name': 'تكنولوجيا المعلومات',
-            'click': 'it'
-        },
-        {
-            'name': 'الصيدلة',
-            'click': 'it'
-        },
-        {
-            'name': 'الإقتصاد',
-            'click': 'financial'
-        },
-        {
-            'name': 'الصحافة والإعلام',
-            'click': 'tv'
-        }
-    ]);
-    collages.set('just',
-    [
-        {
-            'name': 'علوم',
-            'clicked': 'science'
-        },
-        {
-            'name': 'تكنولوجيا المعلومات',
-            'click': 'it'
-        },
-        {
-            'name': 'الصيدلة',
-            'click': 'it'
-        },
-        {
-            'name': 'الإقتصاد',
-            'click': 'financial'
-        },
-        {
-            'name': 'الصحافة والإعلام',
-            'click': 'tv'
-        }
-    ]);
-    collages.set('mu',
-    [
-        {
-            'name': 'علوم',
-            'clicked': 'science'
-        },
-        {
-            'name': 'تكنولوجيا المعلومات',
-            'click': 'it'
-        },
-        {
-            'name': 'الصيدلة',
-            'click': 'it'
-        },
-        {
-            'name': 'الإقتصاد',
-            'click': 'financial'
-        },
-        {
-            'name': 'الصحافة والإعلام',
-            'click': 'tv'
-        }
-    ]);
-    collages.set('tt',
-    [
-        {
-            'name': 'علوم',
-            'clicked': 'science'
-        },
-        {
-            'name': 'تكنولوجيا المعلومات',
-            'click': 'it'
-        },
-        {
-            'name': 'الصيدلة',
-            'click': 'it'
-        },
-        {
-            'name': 'الإقتصاد',
-            'click': 'financial'
-        },
-        {
-            'name': 'الصحافة والإعلام',
-            'click': 'tv'
-        }
-    ]);
-    collages.set('yu',
-    [
-        {
-            'name': 'علوم',
-            'clicked': 'science'
-        },
-        {
-            'name': 'تكنولوجيا المعلومات',
-            'click': 'it'
-        },
-        {
-            'name': 'الصيدلة',
-            'click': 'it'
-        },
-        {
-            'name': 'الإقتصاد',
-            'click': 'financial'
-        },
-        {
-            'name': 'الصحافة والإعلام',
-            'click': 'tv'
-        }
-    ]);
-
-
     $('document').ready(function(){
         $('#college-section').hide();
+        $('#major-section').hide();
         let html_code = `
             <div class="row">
                 <div class="col-md-1"></div>
@@ -336,6 +120,7 @@
         $('#main-content').append(html_code);
     });
     $('body').on('click', '.uni-box', function(e){
+        $('#major-section').hide();
         let clicked_uni = e.target.getAttribute("data-click-uni");
         let clicked_uni_name = e.target.getAttribute("data-click-name");
         $('#main-content').fadeOut(250);
@@ -353,8 +138,8 @@
             let name = col[i]['name'];
             let click = col[i]['click'];
             html_code += `
-                <div data-click-uni="${click}" class="col-12 col-lg-3 col-sm-12 ml-4 shadow p-3 mb-5 bg-white rounded effect uni-box">
-                    <h2 data-click-uni="${click}" class="font-cairo">${name}</h2>
+                <div data-click-coll="${click}" data-clicked-uni="${clicked_uni}" data-uni-name="${clicked_uni_name}" class="col-12 col-lg-3 col-sm-12 ml-4 shadow p-3 mb-5 bg-white rounded effect collage-click">
+                    <h2 data-click-coll="${click}" data-clicked-uni="${clicked_uni}" data-uni-name="${clicked_uni_name}" class="font-cairo">${name}</h2>
                 </div>
             `;
             $('#collages').append(html_code);
@@ -367,5 +152,57 @@
         `;
         $('#college-section').html(html_code)
         $('#college-section').fadeIn(250);
+    });
+    $('#back').on('click', function(){
+        $('#college-section').hide();
+        $('#major-section').hide();
+        $('#main-content').fadeIn();
+    });
+
+    $('body').on('click', '.collage-click', function(e){
+        let col_name = e.target.getAttribute('data-click-coll');
+        let uni_slug = e.target.getAttribute('data-clicked-uni');
+        let uni_name = e.target.getAttribute('data-uni-name');
+        let col_info = collages.get(uni_slug);
+        let coll = [];
+        for (let i = 0; i < col_info.length; i++){
+            if (col_info[i]['click'] == col_name) {
+                coll = col_info[i];
+                break;
+            }
+        }
+        let majors = coll.majors;
+
+        let html_code = `
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="shadow-lg p-3 mb-5 bg-white rounded font-cairo">
+                    <h2>${uni_name} - ${coll['name']}</h2>
+                    <hr>
+                    <div class="row d-flex justify-content-center p-5" id="universities">
+            `;
+        for (let i = 0; i < majors.length; i++) {
+            let name = majors[i]['name'];
+            let price = majors[i]['price'];
+
+            html_code += `
+                <div class="col-12 col-lg-3 col-sm-12 ml-4 shadow p-3 mb-5 bg-white rounded effect cursor">
+                    <h2 class="font-cairo">${name}</h2>
+                    <p class="font-cairo">${price} JOD</p>
+                </div>
+            `;
+        }
+
+        html_code += `
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+
+        $('#major-section').html(html_code);
+        $('#college-section').hide();
+        $('#major-section').fadeIn(250);
     });
 </script>

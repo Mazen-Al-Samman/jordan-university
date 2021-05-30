@@ -122,7 +122,6 @@
     var universities = [];
     var colleges = [];
     var majors = [];
-    // $('#loading').hide();
     $('.hidd').hide();
     $.ajax({
         url: 'https://222001556bdf.ngrok.io/universities/?min_gba=100',
@@ -152,9 +151,9 @@
                     }
 
                     html_code += `
-                        <div data-click-uni="${click}" data-click-name="${name}" class="col-12 col-lg-3 col-sm-12 ml-4 shadow p-3 mb-5 bg-white rounded effect uni-box font-poppins-400">
-                            <h2 data-click-uni="${click}" class="height-100" data-click-name="${name}">${name}</h2>
-                            <img data-click-uni="${click}" data-click-name="${name}" width="150" src="../img/${img}" class="img-fluid mt-3" alt="">
+                        <div data-click-uni="${click}" data-click-name="${name}" class="pointer col-12 col-lg-3 col-sm-12 ml-4 shadow p-3 mb-5 bg-white rounded effect uni-box font-cairo">
+                            <h2 data-click-uni="${click}" class="pointer height-100" data-click-name="${name}">${name}</h2>
+                            <img data-click-uni="${click}" data-click-name="${name}" width="150" src="../img/${img}" class="pointer img-fluid mt-3" alt="">
                         </div>
                     `;
                 }
@@ -180,84 +179,91 @@
         $('#major-section').hide();
         let clicked_uni = e.target.getAttribute("data-click-uni");
         let clicked_uni_name = e.target.getAttribute("data-click-name");
-        $('#main-content').fadeOut(250);
-        let col = collages.get(clicked_uni);
-        let html_code = `
-        <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-10">
-                <div class="shadow-lg p-3 mb-5 bg-white rounded font-cairo" id="uni-collages">
-                <h2>${clicked_uni_name}</h2>
-                <hr>
-                <div class="row d-flex justify-content-center p-5" id="collages">
-        `;
-        for (let i = 0; i < col.length; i++) {
-            let name = col[i]['name'];
-            let click = col[i]['click'];
-            html_code += `
-                <div data-click-coll="${click}" data-clicked-uni="${clicked_uni}" data-uni-name="${clicked_uni_name}" class="col-12 col-lg-3 col-sm-12 ml-4 shadow p-3 mb-5 bg-white rounded effect collage-click">
-                    <h2 data-click-coll="${click}" data-clicked-uni="${clicked_uni}" data-uni-name="${clicked_uni_name}" class="font-cairo">${name}</h2>
-                </div>
-            `;
-            $('#collages').append(html_code);
-        }
-        html_code += `
+        $.ajax({
+            url: `https://222001556bdf.ngrok.io/universities/${clicked_uni}/colleges`,
+            type: 'GET',
+            success: function (response) {
+                colleges = response.payload;
+                $('#main-content').fadeOut(250);
+                let html_code = `
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <div class="shadow-lg p-3 mb-5 bg-white rounded font-cairo" id="uni-collages">
+                        <h2>${clicked_uni_name}</h2>
+                        <hr>
+                        <div class="row d-flex justify-content-center p-5" id="collages">
+                `;
+                for (let i = 0; i < colleges.length; i++) {
+                    let name = colleges[i]['college_name'];
+                    let college_code = colleges[i]['college_code'];
+                    html_code += `
+                        <div data-college-name="${name}" data-uni-name="${clicked_uni_name}" data-clicked-uni="${clicked_uni}" data-college-code="${college_code}" class="pointer col-12 col-lg-3 col-sm-12 ml-4 shadow p-3 mb-5 bg-white rounded effect collage-click">
+                            <h2 data-college-name="${name}" data-uni-name="${clicked_uni_name}" data-clicked-uni="${clicked_uni}" data-college-code="${college_code}" class="font-cairo">${name}</h2>
+                        </div>
+                    `;
+                    $('#collages').append(html_code);
+                }
+                html_code += `
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        `;
-        $('#college-section').html(html_code)
-        $('#college-section').fadeIn(250);
+                `;
+                $('#college-section').html(html_code)
+                $('#college-section').fadeIn(250);
+            }
+        });
     });
 
     $('body').on('click', '.collage-click', function (e) {
         $('#back').fadeIn('100');
         current_page = 'major';
-        let col_name = e.target.getAttribute('data-click-coll');
-        let uni_slug = e.target.getAttribute('data-clicked-uni');
+        let col_code = e.target.getAttribute('data-college-code');
+        let uni_code = e.target.getAttribute('data-clicked-uni');
         let uni_name = e.target.getAttribute('data-uni-name');
-        let col_info = collages.get(uni_slug);
-        let coll = [];
-        for (let i = 0; i < col_info.length; i++) {
-            if (col_info[i]['click'] == col_name) {
-                coll = col_info[i];
-                break;
-            }
-        }
-        let majors = coll.majors;
+        let college_name = e.target.getAttribute('data-college-name');
+        $.ajax({
+            url: `https://222001556bdf.ngrok.io/majors/?university_code=${uni_code}&college_code=${col_code}`,
+            type: 'GET',
+            success: function (res) {
+                majors = res.payload;
+                let html_code = `
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <div class="shadow-lg p-3 mb-5 bg-white rounded font-cairo">
+                        <h2>${uni_name} - ${college_name}</h2>
+                        <hr>
+                        <div class="row d-flex justify-content-center p-5" id="universities">
+                `;
+                    for (let i = 0; i < majors.length; i++) {
+                        let name = majors[i]['major_name'];
+                        let price = majors[i]['price'];
+                        let min_gba = majors[i]['min_gba'];
 
-        let html_code = `
-            <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col-md-10">
-                    <div class="shadow-lg p-3 mb-5 bg-white rounded font-cairo">
-                    <h2>${uni_name} - ${coll['name']}</h2>
-                    <hr>
-                    <div class="row d-flex justify-content-center p-5" id="universities">
-            `;
-        for (let i = 0; i < majors.length; i++) {
-            let name = majors[i]['name'];
-            let price = majors[i]['price'];
+                        html_code += `
+                    <div class="pointer col-12 col-lg-3 col-sm-12 ml-4 shadow p-3 mb-5 bg-white rounded effect cursor">
+                        <h2 class="font-cairo mb-3">${name}</h2>
+                        <hr>
+                        <p class="font-cairo">${price} JOD / Hour</p>
+                        <p class="font-cairo" dir="rtl">${min_gba}%  أو أكثر</p>
+                    </div>
+                `;
+                    }
 
-            html_code += `
-                <div class="col-12 col-lg-3 col-sm-12 ml-4 shadow p-3 mb-5 bg-white rounded effect cursor">
-                    <h2 class="font-cairo">${name}</h2>
-                    <p class="font-cairo">${price} JOD</p>
-                </div>
-            `;
-        }
-
-        html_code += `
+                    html_code += `
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        `;
+            `;
 
-        $('#major-section').html(html_code);
-        $('#college-section').hide();
-        $('#major-section').fadeIn(250);
+                $('#major-section').html(html_code);
+                $('#college-section').hide();
+                $('#major-section').fadeIn(250);
+            }
+        });
     });
 
     $('#back').on('click', function () {

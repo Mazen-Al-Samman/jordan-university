@@ -56,7 +56,7 @@
             </div>
             <br>
             <div class="break-line"></div>
-            <div class="col-md-8 text-center font-cairo mt-4" dir="rtl">
+            <div class="col-md-8 text-center font-cairo mt-4 mb-5" dir="rtl">
                 <p class="line">
                     المرحلة الأصعب في حياة كل طالب هي إختيار التخصص الذي يتناسب مع قدراته, معدله وسوق العمل الأردني
                     <br>
@@ -64,7 +64,6 @@
                     <span class="text-info underline">University Guider </span>
                     بمساعدتك لتختار التخصص المناسب لك وفي الجامعة التي ترغب بها.
                 </p>
-                <button class="btn btn-dark mt-3">سجل الان</button>
             </div>
         </div>
     </div>
@@ -151,14 +150,14 @@
     $('#back').hide();
     $('.hidd').hide();
     $.ajax({
-        url: 'https://222001556bdf.ngrok.io/universities/?min_gba=100',
+        url: 'https://5843cfa8a9fc.ngrok.io/universities/?min_gba=100',
         type: 'GET',
         success: function (response) {
             universities = response.payload;
             $('document').ready(function () {
                 $('#college-section').hide();
                 $('#major-section').hide();
-                let uni_list = ``;
+                let uni_list = `<option value="all">All Universities</option>`;
                 let html_code = `
                     <div class="row">
                         <div class="col-md-1"></div>
@@ -173,9 +172,6 @@
                     let img = universities[i]['university_code'] + '.png';
                     let code = universities[i]['university_code'];
                     let click = universities[i]['university_code'];
-                    if (name.length > 25) {
-                        name = name.substring(0, 25) + '...';
-                    }
 
                     html_code += `
                         <div data-click-uni="${click}" data-click-name="${name}" class="pointer col-12 col-lg-3 col-sm-12 ml-4 shadow p-3 mb-5 bg-white rounded effect uni-box font-cairo">
@@ -217,7 +213,7 @@
         $('.hidd').hide();
         $('.body').css('display', 'flex');
         $.ajax({
-            url: `https://222001556bdf.ngrok.io/universities/${clicked_uni}/colleges`,
+            url: `https://5843cfa8a9fc.ngrok.io/universities/${clicked_uni}/colleges`,
             type: 'GET',
             success: function (response) {
                 colleges = response.payload;
@@ -273,7 +269,7 @@
         let uni_name = e.target.getAttribute('data-uni-name');
         let college_name = e.target.getAttribute('data-college-name');
         $.ajax({
-            url: `https://222001556bdf.ngrok.io/majors/?university_code=${uni_code}&college_code=${col_code}`,
+            url: `https://5843cfa8a9fc.ngrok.io/majors/?university_code=${uni_code}&college_code=${col_code}`,
             type: 'GET',
             success: function (res) {
                 majors = res.payload;
@@ -347,7 +343,10 @@
         $('#back').hide();
         $('.hidd').hide();
         $('.body').css('display', 'flex');
-        let api_data = `https://222001556bdf.ngrok.io/majors/?university_code=TUJ`;
+        let api_data = `https://5843cfa8a9fc.ngrok.io/majors/?`;
+        if (selected_uni != 'all') {
+            api_data += `&university_code=${selected_uni}`;
+        }
         if (selected_price != '') {
             api_data += `&price=${selected_price}`;
         }
@@ -416,6 +415,7 @@
         $('#filtered-data').hide();
         $('#main-content').fadeIn(250);
     });
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
